@@ -77,9 +77,28 @@ reais = Y.argmax(axis=1)
 acuracia = np.mean(previsoes == reais)
 print(f"\nacuracia no conjunto de treinamento: {acuracia*100:.1f}%")
 
+from alunos_teste import alunos_teste
 
+print("\nteste com 10 alunos de teste:")
+
+for n, aluno in enumerate(alunos_teste, start=1):
+    x = aluno.reshape(1, -1) # vira matriz (1, 6)
+    l1 = sigmoid(x.dot(w0) + b0)
+    l2 = softmax(l1.dot(w1) + b1)
+    probs = l2[0]
+    classe = NOMES_CLASSES[probs.argmax()]
+ 
+    print(f"\nAluno {n}")
+    print(f"  Entrada: {aluno.tolist()}")
+    print(f"  Probabilidades:")
+    for nome, p in zip(NOMES_CLASSES, probs):
+        print(f"     {nome:<13} {p*100:5.1f}%")
+    print(f"  Classe prevista: {classe.upper()}")
+
+"""
 # teste com adição de 1 aluno
 print("\nteste com um aluno novo:")
+
 x = np.array([[0.9, 0.9, 0.9, 0.8, 0.9, 0.8]])  # entrada do aluno
 l1 = sigmoid(x.dot(w0) + b0)
 l2 = softmax(l1.dot(w1) + b1)
@@ -89,3 +108,4 @@ print("\nprobabilidades:")
 for nome, prob in zip(NOMES_CLASSES, l2[0]):
     print(f"  {nome:<13} {prob*100:5.1f}%")
 print("\nclasse prevista:", NOMES_CLASSES[l2.argmax()])
+"""
