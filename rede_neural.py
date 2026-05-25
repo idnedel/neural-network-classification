@@ -21,7 +21,7 @@ b1 = np.zeros((1, N_SAIDAS))
 
 # taxa de aprendizado e ciclos
 LEARNING_RATE = 1
-CICLOS = 500
+CICLOS = 1000
 
 # ativações
 def sigmoid(x):
@@ -88,12 +88,12 @@ for n, aluno in enumerate(alunos_teste, start=1):
     probs = l2[0]
     classe = NOMES_CLASSES[probs.argmax()]
  
-    print(f"\nAluno {n}")
-    print(f"  Entrada: {aluno.tolist()}")
-    print(f"  Probabilidades:")
+    print(f"\naluno {n}")
+    print(f"  entrada: {aluno.tolist()}")
+    print(f"  probabilidades:")
     for nome, p in zip(NOMES_CLASSES, probs):
         print(f"     {nome:<13} {p*100:5.1f}%")
-    print(f"  Classe prevista: {classe.upper()}")
+    print(f"  classe prevista: {classe.upper()}")
 
 """
 # teste com adição de 1 aluno

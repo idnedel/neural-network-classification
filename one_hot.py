@@ -18,16 +18,20 @@ def media_para_classe(media):
     else:
         return 4  # insuficiente
 
-medias = X.mean(axis=1)
-classes_idx = np.array([media_para_classe(m) for m in medias])
+PESOS = np.array([0.05, 0.15, 0.35, 0.25, 0.15, 0.05]) 
+# diferentes pesos para cada atributo (diferente da criação
+# do dataset que supoe que quem dorme bem tem maior desemmpenho),
+# agora dando mais valor para as avaliações e para quem estuda
+
+scores = X.dot(PESOS)
+classes_idx = np.array([media_para_classe(s) for s in scores])
 
 Y = np.zeros((len(X), 5))
 Y[np.arange(len(X)), classes_idx] = 1
 
 print(f"atributos de entrada - X: {X.shape}   atributos de saída - Y: {Y.shape}")
 
-# SALVAR
-
+# salvar
 df_out = df.copy()
 df_out['classe'] = [NOMES_CLASSES[i] for i in classes_idx]
 for i, nome in enumerate(NOMES_CLASSES):
@@ -38,6 +42,4 @@ df_out.to_csv('dataset_classificado.csv', index=False)
 np.save('X.npy', X)
 np.save('Y.npy', Y)
 
-print("\narquivos salvos:")
-print("  dataset_com_classes.csv")
-print("  X.npy, Y.npy")
+print("\narquivos salvos")
